@@ -1,28 +1,79 @@
-# React + Vite
+# FORGE FITNESS
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Aplikasi web kebugaran untuk menjelajahi gerakan latihan, mengikuti program workout, mencatat sesi, dan memantau profil. Dibangun dengan React, Vite, Tailwind CSS, dan Firebase Authentication.
 
-Currently, two official plugins are available:
+## Fitur
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Katalog gerakan latihan dan detail panduannya.
+- Program workout dengan pelacakan set, stopwatch sesi, dan timer istirahat.
+- Riwayat sesi workout yang selesai dan disimpan.
+- Kalkulator BMI dan kalori serta halaman nutrisi.
+- Pendaftaran dan login menggunakan email/kata sandi Firebase.
+- Halaman profil untuk melihat informasi akun, mengubah nama, dan melihat ringkasan serta riwayat latihan.
 
-## React Compiler
+## Persyaratan
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Node.js dan npm.
+- Project Firebase dengan aplikasi Web.
 
-## Expanding the Oxlint configuration
+## Menjalankan aplikasi
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+1. Pasang dependensi:
 
-## Menyiapkan login Firebase
+	```bash
+	npm install
+	```
 
-Login dan pendaftaran menggunakan email/password melalui Firebase Authentication. Agar fitur bisa digunakan:
+2. Buat file `.env` di folder utama project dan isi konfigurasi Firebase seperti bagian berikut.
+3. Jalankan server pengembangan:
 
-1. Buat project di [Firebase Console](https://console.firebase.google.com/) dan tambahkan aplikasi Web.
-2. Di **Authentication → Sign-in method**, aktifkan **Email/Password**.
-3. Salin `.env.example` menjadi `.env`, lalu isi nilai `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, dan `VITE_FIREBASE_APP_ID` dari konfigurasi aplikasi Web Firebase.
-4. Di **Authentication → Settings → Authorized domains**, pastikan domain pengembangan/produksi ditambahkan.
-5. Jalankan ulang server Vite setelah menyimpan `.env`.
+	```bash
+	npm run dev
+	```
 
-Jangan commit file `.env`. Sampai konfigurasi Firebase diisi, form login akan dinonaktifkan dan menampilkan petunjuk konfigurasi.
+4. Buka alamat lokal yang ditampilkan Vite di terminal.
+
+Setelah mengubah `.env`, hentikan dan jalankan kembali server Vite supaya variabel konfigurasi dimuat ulang.
+
+## Konfigurasi Firebase
+
+Di Firebase Console, pilih **Project settings → General → Your apps**, lalu salin konfigurasi aplikasi Web ke file `.env` di folder utama:
+
+```env
+VITE_FIREBASE_API_KEY=nilai_apiKey
+VITE_FIREBASE_AUTH_DOMAIN=project-id.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=project-id
+VITE_FIREBASE_STORAGE_BUCKET=project-id.firebasestorage.app
+VITE_FIREBASE_MESSAGING_SENDER_ID=nilai_messagingSenderId
+VITE_FIREBASE_APP_ID=nilai_appId
+VITE_FIREBASE_MEASUREMENT_ID=nilai_measurementId
+```
+
+Aktifkan **Authentication → Sign-in method → Email/Password** di Firebase Console. Pastikan domain pengembangan dan domain produksi tercantum di **Authentication → Settings → Authorized domains**.
+
+File `.env` berisi konfigurasi lokal dan tidak boleh di-commit. Variabel yang diawali `VITE_` akan tersedia di bundle browser; jangan menyimpan kata sandi, token privat, atau rahasia server di sana. Keamanan data Firebase perlu diatur melalui Firebase Authentication dan aturan keamanan layanan yang digunakan.
+
+## Penggunaan profil dan riwayat
+
+- Buka `/login` untuk masuk atau membuat akun.
+- Setelah masuk, gunakan menu **Profil Saya** atau kunjungi `/profil`.
+- Nama profil diperbarui di Firebase Authentication.
+- Riwayat sesi disimpan di `localStorage` browser dan dipisahkan berdasarkan akun pada perangkat tersebut. Riwayat ini tidak disinkronkan ke cloud atau perangkat lain.
+- Untuk mencatat sesi, selesaikan workout, lalu pilih **Simpan Sesi ke Riwayat**.
+
+## Perintah
+
+```bash
+npm run dev      # Menjalankan server pengembangan
+npm run build    # Membuat build produksi di dist/
+npm run preview  # Melihat build produksi secara lokal
+npm run lint     # Menjalankan Oxlint
+```
+
+## Teknologi
+
+- React 19 dan React Router
+- Vite
+- Tailwind CSS 3
+- Firebase Authentication dan Firebase Analytics
+- Lucide React
