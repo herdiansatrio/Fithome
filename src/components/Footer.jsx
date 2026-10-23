@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Zap, Heart } from 'lucide-react';
+import { Heart } from 'lucide-react';
+import Logo from './Logo';
 
 const InstagramIcon = ({ size = 16, className = '' }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -50,13 +51,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center gap-2 mb-4 group">
-              <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center group-hover:shadow-glow transition-all duration-300">
-                <Zap size={18} className="text-bg-primary fill-bg-primary" />
-              </div>
-              <span className="font-heading font-black text-lg tracking-tight">
-                FORGE<span className="text-accent">FITNESS</span>
-              </span>
+            <Link to="/" className="inline-block mb-4">
+              <Logo size="md" />
             </Link>
             <p className="text-text-secondary text-sm leading-relaxed mb-5 max-w-xs">
               Platform edukasi kebugaran mandiri di rumah. Bangun tubuh yang lebih kuat, mulai
@@ -104,7 +100,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-text-secondary text-xs text-center sm:text-left">
-            © 2025 FORGE FITNESS. Dibuat untuk tujuan edukasi dan portofolio.
+            © 2025 FitHome. Dibuat untuk tujuan edukasi dan portofolio.
           </p>
           <p className="text-text-secondary text-xs flex items-center gap-1">
             Informasi di situs ini bukan pengganti saran medis profesional.{' '}

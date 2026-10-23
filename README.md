@@ -1,4 +1,4 @@
-# FORGE FITNESS
+# FitHome
 
 Aplikasi web kebugaran untuk menjelajahi gerakan latihan, mengikuti program workout, mencatat sesi, dan memantau profil. Dibangun dengan React, Vite, Tailwind CSS, dan Firebase Authentication.
 

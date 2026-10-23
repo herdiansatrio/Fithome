@@ -195,7 +195,7 @@ export default function Programs() {
         {/* Tips Box */}
         <div className="bg-accent/5 border border-accent/20 rounded-2xl p-6 text-center">
           <p className="text-text-secondary text-sm leading-relaxed max-w-2xl mx-auto">
-            💡 <strong className="text-text-primary">Panduan memilih program:</strong> Jika kamu baru memulai, pilih{' '}
+            <strong className="text-text-primary">Panduan memilih program:</strong> Jika kamu baru memulai, pilih{' '}
             <button onClick={() => navigate('/program/full-body-starter')} className="text-accent hover:underline font-semibold">
               Full Body Starter
             </button>

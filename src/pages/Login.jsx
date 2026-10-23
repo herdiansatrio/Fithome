@@ -5,9 +5,10 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth';
-import { ArrowLeft, ArrowRight, Eye, EyeOff, Mail, ShieldCheck, UserRound, Zap } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft, ArrowRight, Eye, EyeOff, Mail, ShieldCheck, UserRound } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { auth, isFirebaseConfigured } from '../utils/firebase';
+import Logo from '../components/Logo';
 
 const authErrors = {
   'auth/email-already-in-use': 'Email ini sudah terdaftar. Coba masuk.',
@@ -19,6 +20,9 @@ const authErrors = {
 
 export default function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+  // Jika user datang dari halaman protected, arahkan kembali setelah login
+  const from = location.state?.from?.pathname || '/';
   const [mode, setMode] = useState('login');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -30,9 +34,9 @@ export default function Login() {
   useEffect(() => {
     if (!auth) return undefined;
     return onAuthStateChanged(auth, (user) => {
-      if (user) navigate('/', { replace: true });
+      if (user) navigate(from, { replace: true });
     });
-  }, [navigate]);
+  }, [navigate, from]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -47,7 +51,7 @@ export default function Login() {
       } else {
         await signInWithEmailAndPassword(auth, email, password);
       }
-      navigate('/', { replace: true });
+      navigate(from, { replace: true });
     } catch (authError) {
       setError(authErrors[authError.code] || 'Tidak dapat memproses akun. Silakan coba lagi.');
     } finally {
@@ -65,7 +69,7 @@ export default function Login() {
           <Link to="/" className="mb-16 inline-flex items-center gap-2 text-text-secondary transition-colors hover:text-text-primary">
             <ArrowLeft size={17} /> Kembali ke beranda
           </Link>
-          <p className="mb-5 font-mono text-xs uppercase tracking-[0.28em] text-accent">Forge your next level</p>
+          <p className="mb-5 font-mono text-xs uppercase tracking-[0.28em] text-accent">FitHome workout</p>
           <h1 className="max-w-xl text-6xl font-black leading-[1.05] tracking-tight xl:text-7xl">
             Latihan lebih fokus. <span className="text-accent">Progres</span> lebih nyata.
           </h1>
@@ -82,12 +86,9 @@ export default function Login() {
           <Link to="/" className="mb-8 inline-flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary lg:hidden">
             <ArrowLeft size={16} /> Kembali
           </Link>
-          <div className="mb-8 flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent text-bg-primary"><Zap size={22} fill="currentColor" /></div>
-            <div>
-              <p className="font-heading text-xl font-black">FORGE<span className="text-accent">FITNESS</span></p>
-              <p className="text-xs text-text-muted">Akun latihanmu dimulai di sini</p>
-            </div>
+          <div className="mb-8">
+            <Logo size="lg" />
+            <p className="text-xs text-text-muted mt-2">Akun latihanmu dimulai di sini</p>
           </div>
 
           <div className="mb-7">
@@ -136,10 +137,14 @@ export default function Login() {
           </form>
 
           <p className="mt-6 text-center text-sm text-text-secondary">
-            {mode === 'login' ? 'Belum punya akun?' : 'Sudah punya akun?'}{' '}
-            <button type="button" onClick={() => { setError(''); setMode(mode === 'login' ? 'register' : 'login'); }} className="font-semibold text-accent hover:text-accent-hover">
-              {mode === 'login' ? 'Daftar sekarang' : 'Masuk'}
-            </button>
+            Belum punya akun?{' '}
+            <Link
+              to="/register"
+              state={location.state}
+              className="font-semibold text-accent hover:text-accent-hover transition-colors"
+            >
+              Daftar akun sekarang
+            </Link>
           </p>
         </div>
       </div>

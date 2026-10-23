@@ -203,7 +203,7 @@ export default function ExerciseDetail() {
             <ul className="space-y-2.5">
               {exercise.commonMistakes.map((m, i) => (
                 <li key={i} className="flex gap-2 text-sm text-text-secondary">
-                  <span className="text-warning mt-0.5 flex-shrink-0">✗</span>
+                  <span className="text-warning mt-0.5 flex-shrink-0">x</span>
                   {m}
                 </li>
               ))}
@@ -216,7 +216,7 @@ export default function ExerciseDetail() {
             <ul className="space-y-2.5">
               {exercise.tips.map((t, i) => (
                 <li key={i} className="flex gap-2 text-sm text-text-secondary">
-                  <span className="text-accent mt-0.5 flex-shrink-0">✓</span>
+                  <span className="text-accent mt-0.5 flex-shrink-0">v</span>
                   {t}
                 </li>
               ))}

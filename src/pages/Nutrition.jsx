@@ -69,7 +69,7 @@ export default function Nutrition() {
         {/* Medical Notice */}
         <div className="mt-12 bg-bg-card border border-border rounded-2xl p-6 text-center">
           <p className="text-text-secondary text-sm leading-relaxed max-w-2xl mx-auto">
-            📌 <strong className="text-text-primary">Catatan Penting:</strong> Semua informasi di halaman ini adalah panduan edukasi umum.
+            <strong className="text-text-primary">Catatan Penting:</strong> Semua informasi di halaman ini adalah panduan edukasi umum.
             Kebutuhan nutrisi setiap orang berbeda dan dipengaruhi oleh banyak faktor. Konsultasikan
             dengan ahli gizi atau dokter untuk rekomendasi yang dipersonalisasi sesuai kondisi kesehatan kamu.
           </p>

@@ -1,4 +1,4 @@
-// exercises.js — Data katalog latihan FORGE FITNESS
+// exercises.js — Data katalog latihan FitHome
 
 export const exercises = [
   {
@@ -668,7 +668,7 @@ export const muscleCategoryCards = [
     description: 'Push-up, press, dan fly untuk dada kuat dan terproportisi.',
     image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80',
     count: 3,
-    icon: '💪',
+    icon: 'Dumbbell',
   },
   {
     id: 'back',
@@ -677,7 +677,7 @@ export const muscleCategoryCards = [
     description: 'Latihan tarik untuk punggung lebar dan postur tegak.',
     image: 'https://images.unsplash.com/photo-1434682881908-b43d0467b798?w=400&q=80',
     count: 4,
-    icon: '🏋️',
+    icon: 'MoveVertical',
   },
   {
     id: 'shoulders',
@@ -686,7 +686,7 @@ export const muscleCategoryCards = [
     description: 'Press dan lateral raise untuk bahu bulat dan kuat.',
     image: 'https://images.unsplash.com/photo-1604480133080-602f52c59ade?w=400&q=80',
     count: 3,
-    icon: '🔥',
+    icon: 'ArrowUpFromLine',
   },
   {
     id: 'arms',
@@ -695,7 +695,7 @@ export const muscleCategoryCards = [
     description: 'Curl dan extension untuk bisep dan trisep yang terdefinisi.',
     image: 'https://images.unsplash.com/photo-1581009137042-c552e485697a?w=400&q=80',
     count: 3,
-    icon: '⚡',
+    icon: 'Zap',
   },
   {
     id: 'core',
@@ -704,7 +704,7 @@ export const muscleCategoryCards = [
     description: 'Plank, crunch, dan lebih untuk perut kuat dan stabil.',
     image: 'https://images.unsplash.com/photo-1566241440091-ec10de8db2e1?w=400&q=80',
     count: 5,
-    icon: '🎯',
+    icon: 'Target',
   },
   {
     id: 'legs',
@@ -713,6 +713,6 @@ export const muscleCategoryCards = [
     description: 'Squat, lunges, dan bridge untuk kaki dan glutes.',
     image: 'https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?w=400&q=80',
     count: 5,
-    icon: '🦵',
+    icon: 'FootprintsIcon',
   },
 ];

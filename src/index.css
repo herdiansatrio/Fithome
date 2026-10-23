@@ -114,6 +114,11 @@
   /* Section Spacing & Containers */
   .section {
     @apply py-16 md:py-24;
+    scroll-margin-top: 5rem;
+  }
+
+  section[id]:not(#beranda) {
+    scroll-margin-top: 5rem;
   }
 
   .container-main {

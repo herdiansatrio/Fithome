@@ -1,4 +1,4 @@
-// programs.js — Data program workout FORGE FITNESS
+// programs.js — Data program workout FitHome
 
 export const programs = [
   {

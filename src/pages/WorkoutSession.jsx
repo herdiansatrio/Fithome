@@ -287,7 +287,7 @@ export default function WorkoutSession() {
 
     setSessionSaved(true);
     setShowCompleteModal(false);
-    alert('🎉 Sesi berhasil dicatat ke Riwayat Latihan!');
+    alert('Sesi berhasil dicatat ke Riwayat Latihan!');
   };
 
   if (!program) {
@@ -479,7 +479,7 @@ export default function WorkoutSession() {
 
             {/* Quick Helper Tips */}
             <div className="p-4 bg-bg-card border border-border rounded-2xl text-xs text-text-secondary space-y-1.5">
-              <p className="font-semibold text-text-primary">💡 Tips Latihan:</p>
+              <p className="font-semibold text-text-primary">Tips Latihan:</p>
               <p>• Klik nomor <strong className="text-text-primary">Set</strong> untuk menandai set selesai dan memulai timer istirahat otomatis.</p>
               <p>• Gunakan ikon <strong className="text-text-primary">Mata/Panduan</strong> untuk melihat panduan form gerakan tanpa keluar dari halaman.</p>
             </div>
@@ -699,7 +699,7 @@ export default function WorkoutSession() {
                 <div>
                   <p className="font-heading font-bold text-sm text-text-primary">
                     {completedDayExercises === totalDayExercises && totalDayExercises > 0
-                      ? '🎉 Semua latihan hari ini sudah tuntas!'
+                      ? 'Semua latihan hari ini sudah tuntas!'
                       : `${completedDayExercises}/${totalDayExercises} gerakan telah diselesaikan.`}
                   </p>
                   <p className="text-xs text-text-secondary">

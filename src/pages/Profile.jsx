@@ -73,10 +73,17 @@ export default function Profile() {
         <div className="container-main max-w-xl">
           <div className="card p-8 text-center sm:p-10">
             <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 text-accent"><UserRound size={26} /></div>
-            <p className="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-accent">Profil Forge</p>
+            <p className="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-accent">Profil FitHome</p>
             <h1 className="text-3xl font-black">Masuk untuk melihat profil</h1>
             <p className="mt-3 text-sm leading-6 text-text-secondary">Informasi akun dan catatan latihan tersimpan pada profilmu. Masuk atau buat akun untuk melanjutkan.</p>
-            <Link to="/login" className="btn-primary mt-6 justify-center">Masuk / Daftar <ArrowRight size={16} /></Link>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <Link to="/register" className="btn-primary justify-center shadow-glow">
+                Daftar Akun Baru <ArrowRight size={16} />
+              </Link>
+              <Link to="/login" className="btn-secondary justify-center">
+                Masuk ke Akun
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -110,7 +117,7 @@ export default function Profile() {
                   {user.photoURL ? <img src={user.photoURL} alt="Foto profil" className="h-full w-full object-cover" /> : (user.displayName || user.email || 'A').charAt(0).toUpperCase()}
                 </div>
                 <div className="min-w-0">
-                  <h2 className="truncate text-xl font-bold">{user.displayName || 'Atlet Forge'}</h2>
+                  <h2 className="truncate text-xl font-bold">{user.displayName || 'Atlet FitHome'}</h2>
                   <p className="truncate text-sm text-text-secondary">{user.email}</p>
                 </div>
               </div>

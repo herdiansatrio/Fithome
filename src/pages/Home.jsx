@@ -1,10 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, ChevronDown, Zap, BookOpen, Home as HomeIcon, Flame, Target, Sparkles, CheckCircle2 } from 'lucide-react';
+import {
+  ArrowRight, ChevronDown, Zap, BookOpen, Home as HomeIcon,
+  Flame, Target, Sparkles, CheckCircle2, Calculator, Apple, Lock,
+} from 'lucide-react';
 import SectionHeading from '../components/SectionHeading';
 import MuscleCategoryCard from '../components/MuscleCategoryCard';
 import WorkoutCard from '../components/WorkoutCard';
 import { muscleCategoryCards } from '../data/exercises';
 import { programs } from '../data/programs';
+import { useAuth } from '../context/AuthContext';
 
 const stats = [
   { value: '50+', label: 'Panduan Gerakan', icon: BookOpen },
@@ -36,13 +40,43 @@ const beginnerTips = [
   },
 ];
 
+// Preview data for locked sections
+const kalkulatorFeatures = [
+  { label: 'Kalkulator BMI', desc: 'Cek indeks massa tubuh & kategori berat badanmu' },
+  { label: 'Estimasi Kalori', desc: 'Hitung kebutuhan kalori harian berdasarkan aktivitas' },
+  { label: 'Target Berat Badan', desc: 'Rencanakan jalur mencapai berat badan ideal' },
+];
+
+const nutrisiFeatures = [
+  { label: 'Database Makanan', desc: 'Cari kandungan gizi ratusan jenis makanan' },
+  { label: 'Panduan Makro', desc: 'Rasio protein, karbohidrat, dan lemak yang ideal' },
+  { label: 'Tips Pola Makan', desc: 'Rekomendasi diet sehat untuk mendukung latihanmu' },
+];
+
 export default function Home() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+
+  // Navigasi sadar auth:
+  // - Jika sudah login → ke halaman fitur
+  // - Jika belum login → scroll ke section di landing page
+  const handleNavOrScroll = (path, hash) => {
+    if (user) {
+      navigate(path);
+    } else {
+      const el = document.getElementById(hash);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const goToLatihan = () => handleNavOrScroll('/latihan', 'latihan');
+  const goToProgram = () => handleNavOrScroll('/program', 'program');
 
   return (
     <div>
       {/* ── HERO SECTION ─────────────────────────────────── */}
       <section
+        id="beranda"
         className="relative min-h-[100dvh] flex items-center overflow-hidden"
         aria-label="Hero section"
       >
@@ -96,13 +130,13 @@ export default function Home() {
             {/* CTAs */}
             <div className="flex flex-wrap gap-4 animate-slide-up animation-delay-200">
               <button
-                onClick={() => navigate('/latihan')}
+                onClick={goToLatihan}
                 className="btn-primary shadow-glow text-base px-8 py-3.5"
               >
                 Mulai Latihan <ArrowRight size={18} />
               </button>
               <button
-                onClick={() => navigate('/program')}
+                onClick={goToProgram}
                 className="btn-secondary text-base px-8 py-3.5"
               >
                 Jelajahi Program
@@ -136,7 +170,7 @@ export default function Home() {
       </section>
 
       {/* ── MUSCLE CATEGORIES ─────────────────────────────── */}
-      <section className="section" aria-labelledby="categories-heading">
+      <section id="latihan" className="section" aria-labelledby="categories-heading">
         <div className="container-main">
           <SectionHeading
             label="Katalog Target"
@@ -148,11 +182,27 @@ export default function Home() {
               <MuscleCategoryCard key={category.id} category={category} />
             ))}
           </div>
+          {!user && (
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-center">
+              <button
+                onClick={() => navigate('/register')}
+                className="btn-primary text-sm px-6 py-2.5 shadow-glow"
+              >
+                Daftar Gratis untuk Akses Penuh <ArrowRight size={15} />
+              </button>
+              <button
+                onClick={() => navigate('/login')}
+                className="btn-secondary text-sm px-5 py-2.5"
+              >
+                Masuk
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
       {/* ── FEATURED PROGRAMS ──────────────────────────────── */}
-      <section className="section bg-bg-secondary/40 border-y border-border/40" aria-labelledby="programs-heading">
+      <section id="program" className="section bg-bg-secondary/40 border-y border-border/40" aria-labelledby="programs-heading">
         <div className="container-main">
           <div className="flex items-end justify-between mb-8 md:mb-12">
             <SectionHeading
@@ -161,12 +211,14 @@ export default function Home() {
               subtitle="Tiga jadwal program dengan timer sesi dan pencatatan repetisi yang siap diikuti."
               className="mb-0"
             />
-            <button
-              onClick={() => navigate('/program')}
-              className="btn-ghost hidden md:flex text-accent hover:text-accent font-semibold text-sm"
-            >
-              Lihat Semua <ArrowRight size={14} />
-            </button>
+            {user && (
+              <button
+                onClick={() => navigate('/program')}
+                className="btn-ghost hidden md:flex text-accent hover:text-accent font-semibold text-sm"
+              >
+                Lihat Semua <ArrowRight size={14} />
+              </button>
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -175,15 +227,163 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-8 md:hidden text-center">
-            <button onClick={() => navigate('/program')} className="btn-secondary w-full justify-center text-sm py-3">
-              Lihat Semua Program <ArrowRight size={14} />
-            </button>
-          </div>
+          {!user && (
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-center">
+              <button
+                onClick={() => navigate('/register')}
+                className="btn-primary text-sm px-6 py-2.5 shadow-glow"
+              >
+                Daftar Akun & Mulai Latihan <ArrowRight size={15} />
+              </button>
+              <button
+                onClick={() => navigate('/login')}
+                className="btn-secondary text-sm px-5 py-2.5"
+              >
+                Masuk
+              </button>
+            </div>
+          )}
+          {user && (
+            <div className="mt-8 md:hidden text-center">
+              <button onClick={() => navigate('/program')} className="btn-secondary w-full justify-center text-sm py-3">
+                Lihat Semua Program <ArrowRight size={14} />
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* ── BEGINNER PRINCIPLES (Redesigned Asymmetric Grid) ─────────────────────────────────── */}
+      {/* ── KALKULATOR PREVIEW ──────────────────────────────── */}
+      <section id="kalkulator" className="section" aria-labelledby="kalkulator-heading">
+        <div className="container-main">
+          <SectionHeading
+            label="Tools Kebugaran"
+            title={<>Kalkulator <span className="text-accent">Kesehatan</span></>}
+            subtitle="Hitung BMI, estimasi kalori harian, dan rencanakan target berat badanmu secara akurat."
+            centered
+          />
+
+          <div className="relative max-w-4xl mx-auto">
+            {/* Preview cards */}
+            <div className={`grid grid-cols-1 md:grid-cols-3 gap-4 transition-all duration-300 ${!user ? 'blur-[2px] select-none pointer-events-none' : ''}`}>
+              {kalkulatorFeatures.map(({ label, desc }) => (
+                <div key={label} className="card p-6 flex flex-col gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
+                    <Calculator size={18} />
+                  </div>
+                  <h3 className="font-heading font-bold text-base text-text-primary">{label}</h3>
+                  <p className="text-text-secondary text-sm leading-relaxed">{desc}</p>
+                  <div className="mt-auto pt-3 border-t border-border/50">
+                    <span className="text-xs text-accent font-semibold">Fitur Eksklusif</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Lock overlay for non-logged in users */}
+            {!user && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 z-10">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-bg-card border border-border shadow-xl">
+                  <Lock size={24} className="text-accent" />
+                </div>
+                <div className="text-center">
+                  <p className="font-heading font-bold text-text-primary mb-1">Fitur Terkunci</p>
+                  <p className="text-text-secondary text-sm mb-4">Login untuk mengakses kalkulator kesehatan</p>
+                  <div className="flex flex-wrap items-center justify-center gap-3">
+                    <button
+                      onClick={() => navigate('/register')}
+                      className="btn-primary text-sm px-5 py-2.5 shadow-glow"
+                    >
+                      Daftar Akun Gratis <ArrowRight size={15} />
+                    </button>
+                    <button
+                      onClick={() => navigate('/login')}
+                      className="btn-secondary text-sm px-4 py-2.5"
+                    >
+                      Masuk
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {user && (
+            <div className="mt-8 text-center">
+              <button onClick={() => navigate('/kalkulator')} className="btn-primary text-sm px-6 py-2.5">
+                Buka Kalkulator <ArrowRight size={15} />
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── NUTRISI PREVIEW ──────────────────────────────── */}
+      <section id="nutrisi" className="section bg-bg-secondary/40 border-y border-border/40" aria-labelledby="nutrisi-heading">
+        <div className="container-main">
+          <SectionHeading
+            label="Panduan Nutrisi"
+            title={<>Nutrisi untuk <span className="text-accent">Performa Optimal</span></>}
+            subtitle="Pahami kebutuhan gizi harian dan temukan pola makan yang mendukung target kebugaranmu."
+            centered
+          />
+
+          <div className="relative max-w-4xl mx-auto">
+            {/* Preview cards */}
+            <div className={`grid grid-cols-1 md:grid-cols-3 gap-4 transition-all duration-300 ${!user ? 'blur-[2px] select-none pointer-events-none' : ''}`}>
+              {nutrisiFeatures.map(({ label, desc }) => (
+                <div key={label} className="card p-6 flex flex-col gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
+                    <Apple size={18} />
+                  </div>
+                  <h3 className="font-heading font-bold text-base text-text-primary">{label}</h3>
+                  <p className="text-text-secondary text-sm leading-relaxed">{desc}</p>
+                  <div className="mt-auto pt-3 border-t border-border/50">
+                    <span className="text-xs text-accent font-semibold">Fitur Eksklusif</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Lock overlay for non-logged in users */}
+            {!user && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 z-10">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-bg-card border border-border shadow-xl">
+                  <Lock size={24} className="text-accent" />
+                </div>
+                <div className="text-center">
+                  <p className="font-heading font-bold text-text-primary mb-1">Fitur Terkunci</p>
+                  <p className="text-text-secondary text-sm mb-4">Login untuk mengakses panduan nutrisi</p>
+                  <div className="flex flex-wrap items-center justify-center gap-3">
+                    <button
+                      onClick={() => navigate('/register')}
+                      className="btn-primary text-sm px-5 py-2.5 shadow-glow"
+                    >
+                      Daftar Akun Gratis <ArrowRight size={15} />
+                    </button>
+                    <button
+                      onClick={() => navigate('/login')}
+                      className="btn-secondary text-sm px-4 py-2.5"
+                    >
+                      Masuk
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {user && (
+            <div className="mt-8 text-center">
+              <button onClick={() => navigate('/nutrisi')} className="btn-primary text-sm px-6 py-2.5">
+                Buka Panduan Nutrisi <ArrowRight size={15} />
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── BEGINNER PRINCIPLES ─────────────────────────────────── */}
       <section className="section" aria-labelledby="tips-heading">
         <div className="container-main">
           <SectionHeading
@@ -224,7 +424,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── CTA BANNER (Refined Dark Showcase) ─────────────────── */}
+      {/* ── CTA BANNER ─────────────────── */}
       <section className="section py-16 md:py-24" aria-label="Mulai Sekarang">
         <div className="container-main">
           <div className="relative rounded-3xl bg-gradient-to-b from-bg-card via-bg-secondary to-bg-card border border-border p-8 md:p-16 text-center overflow-hidden shadow-2xl">
@@ -246,13 +446,13 @@ export default function Home() {
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <button
-                  onClick={() => navigate('/latihan')}
+                  onClick={goToLatihan}
                   className="btn-primary text-base px-8 py-3.5 shadow-glow"
                 >
                   Mulai Latihan Sekarang <ArrowRight size={18} />
                 </button>
                 <button
-                  onClick={() => navigate('/program')}
+                  onClick={goToProgram}
                   className="btn-secondary text-base px-8 py-3.5"
                 >
                   Pilih Program

@@ -1,4 +1,4 @@
-// articles.js — Data artikel edukasi nutrisi & pemulihan FORGE FITNESS
+// articles.js — Data artikel edukasi nutrisi & pemulihan FitHome
 
 export const articles = [
   {

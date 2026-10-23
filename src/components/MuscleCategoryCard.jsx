@@ -1,5 +1,23 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import {
+  ArrowRight,
+  Dumbbell,
+  MoveVertical,
+  ArrowUpFromLine,
+  Zap,
+  Target,
+  Footprints,
+} from 'lucide-react';
+
+// Peta nama icon string → komponen Lucide
+const iconMap = {
+  Dumbbell,
+  MoveVertical,
+  ArrowUpFromLine,
+  Zap,
+  Target,
+  FootprintsIcon: Footprints,
+};
 
 export default function MuscleCategoryCard({ category }) {
   const navigate = useNavigate();
@@ -7,6 +25,8 @@ export default function MuscleCategoryCard({ category }) {
   const handleClick = () => {
     navigate(`/latihan?group=${category.id}`);
   };
+
+  const IconComponent = iconMap[category.icon] ?? Dumbbell;
 
   return (
     <div
@@ -34,7 +54,7 @@ export default function MuscleCategoryCard({ category }) {
           className="absolute inset-0 bg-bg-secondary hidden items-center justify-center"
           aria-hidden="true"
         >
-          <span className="text-5xl">{category.icon}</span>
+          <IconComponent size={40} className="text-accent opacity-60" />
         </div>
         {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-transparent to-transparent" />
@@ -47,7 +67,7 @@ export default function MuscleCategoryCard({ category }) {
       {/* Content */}
       <div className="p-4">
         <div className="flex items-center gap-2 mb-1.5">
-          <span className="text-xl" aria-hidden="true">{category.icon}</span>
+          <IconComponent size={18} className="text-accent shrink-0" aria-hidden="true" />
           <h3 className="font-heading font-bold text-base text-text-primary">
             {category.name}
           </h3>
